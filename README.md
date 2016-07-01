@@ -16,6 +16,27 @@ article.querySelector('footer').dt(['div',['span'],'p']).dt({'span':'ok'});
 article.dt({'h3':'ora','li span':'QUI!'});
 ```
 
+**Result**
+
+```html
+<article>
+   <header>
+      <h1>Botta<span>daje</span></h1>
+      <p></p>
+   </header>
+   <div>
+      <h3>ora</h3>
+      <ul>
+         <li><span>QUI!</span></li>
+      </ul>
+   </div>
+   <footer>
+      <div><span>ok</span></div>
+      <p></p>
+   </footer>
+</article>
+```
+
 **To do**
 
 - Object key: string (querySelector)
