@@ -18,13 +18,22 @@ Element.prototype.dt = function (input) {
   return this;
 };
 
-// Create article and fill
-var article = document.createElement('article').dt(['header',['h1',['span'],'p'], 'div',['h3','ul'], 'footer']);
+function loadAssets(){
+	// Create article and fill
+	var article = document.createElement('article').dt(['header',['h1',['span'],'p'], 'div',['h3','ul'], 'footer']);
 
-// Append and populate
-document.body.dt(article.dt({'h1':'Botta','h1 span':'daje'}));
+	// Append and populate
+	document.body.dt(article.dt({'h1':'Botta','h1 span':'daje'}));
 
-// Continue!
-article.querySelector('ul').dt(['li',['span']]);
-article.querySelector('footer').dt(['div',['span'],'p']).dt({'span':'ok'});
-article.dt({'h3':'ora','li span':'QUI!'});
+	// Continue!
+	article.querySelector('ul').dt(['li',['span']]);
+	article.querySelector('footer').dt(['div',['span'],'p']).dt({'span':'ok'});
+	article.dt({'h3':'ora','li span':'QUI!'});
+
+}
+
+if (window.addEventListener)
+  window.addEventListener('load', loadAssets, false);
+else if (window.attachEvent)
+  window.attachEvent('onload', loadAssets);
+else window.onload = loadAssets;
