@@ -1,4 +1,5 @@
 if (!document.querySelectorAll) {
+  document.body.className += ' red';
   document.querySelectorAll = function (selectors) {
     var style = document.createElement('style'), elements = [], element;
     document.documentElement.firstChild.appendChild(style);
