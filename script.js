@@ -5,6 +5,7 @@ function goLoad(url) {
 }
 
 function foo(resp) {
+	console.log(resp);
 	var sha = resp.data.object.sha;
 	normal(sha);
 }

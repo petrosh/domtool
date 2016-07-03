@@ -31,6 +31,8 @@ function proto(){
 	article.querySelector('ul').dt(['li',['span']]);
 	article.querySelector('footer').dt(['div',['span'],'p']).dt({'span':'ok'});
 	article.dt({'h3':'ora','li span':'QUI!'});
+
+	return article;
 }
 
 proto();
