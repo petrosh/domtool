@@ -20,10 +20,12 @@ Element.prototype.dt = function (input) {
 
 function loadAssets(){
 	// Create article and fill
-	var article = document.createElement('article').dt(['header',['h1',['span'],'p'], 'div',['h3','ul'], 'footer']);
+	var article = document.createElement('article');
+	article.dt(['header',['h1',['span'],'p'], 'div',['h3','ul'], 'footer']);
 
 	// Append and populate
-	document.body.dt(article.dt({'h1':'Botta','h1 span':'daje'}));
+	var body = document.body;
+	body.dt(article.dt({'h1':'Botta','h1 span':'daje'}));
 
 	// Continue!
 	article.querySelector('ul').dt(['li',['span']]);
@@ -32,4 +34,9 @@ function loadAssets(){
 
 }
 
-loadAssets();
+
+if (window.addEventListener)
+  window.addEventListener('load', loadAssets, false);
+else if (window.attachEvent)
+  window.attachEvent('onload', loadAssets);
+else window.onload = loadAssets;
