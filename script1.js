@@ -32,8 +32,4 @@ function loadAssets(){
 
 }
 
-if (window.addEventListener)
-  window.addEventListener('load', loadAssets, false);
-else if (window.attachEvent)
-  window.attachEvent('onload', loadAssets);
-else window.onload = loadAssets;
+loadAssets();
