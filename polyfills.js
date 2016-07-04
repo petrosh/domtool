@@ -40,3 +40,20 @@ if(!("lastElementChild" in document.documentElement)){
     }
   });
 }
+
+function output(stack) {
+  var body = document.querySelector('body');
+  if ( stack.length ) {
+    for (var i = 0; i < stack.length; i++) {
+      var p = document.createElement('p');
+      p.innerHTML = stack[i].toString();
+      body.appendChild(p);
+    }
+  } else {
+    var p = document.createElement('p');
+    p.innerHTML = 'no stack';
+    body.appendChild(p);
+  }
+}
+
+output(stack);

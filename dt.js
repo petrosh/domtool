@@ -41,10 +41,5 @@ function proto(){
 }
 
 if (proto()) {
-	for (var i = 0; i < stack.length; i++) {
-		var body = document.querySelector('body');
-		var p = document.createElement('p');
-		p.innerHTML = stack[i].toString();
-		body.appendChild(p);
-	}
+	outputs(stack);
 }
