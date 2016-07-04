@@ -11,6 +11,23 @@
 <p>
 	ie8
 </p>
+<script type="text/javascript">
+	var stack = [];
+	function outputs(stack) {
+	  var body = document.querySelector('body');
+	  var p = document.createElement('p');
+	  if ( stack.length ) {
+	    for (var i = 0; i < stack.length; i++) {
+	      p = document.createElement('p');
+	      p.innerHTML = stack[i].toString();
+	      body.appendChild(p);
+	    }
+	  } else {
+	    p.innerHTML = 'no stack';
+	    body.appendChild(p);
+	  }
+	}
+</script>
 <script src="script.js"></script>
 	</body>
 </html>
