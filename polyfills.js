@@ -41,7 +41,7 @@ if(!("lastElementChild" in document.documentElement)){
   });
 }
 
-function output(stack) {
+function outputs(stack) {
   var body = document.querySelector('body');
   if ( stack.length ) {
     for (var i = 0; i < stack.length; i++) {
@@ -56,4 +56,4 @@ function output(stack) {
   }
 }
 
-output(stack);
+outputs(stack);
