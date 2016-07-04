@@ -1,18 +1,26 @@
 function goLoad(url) {
+	stack.push('loading ' + url);
 	var script = document.createElement('script');
   script.setAttribute('src', url);
-  document.querySelectorAll('head')[0].appendChild(script);
+  document.querySelector('head').appendChild(script);
 }
 
 function foo(resp) {
-	console.log(resp);
-	var sha = resp.data.object.sha;
+	var sha;
+	if(resp.data.object.sha){
+		sha = resp.data.object.sha;
+	}
+	stack.push('sha ' + sha);
 	normal(sha);
 }
 
 function normal(sha) {
-	var p = document.querySelector('p').innerHTML += ' ' + sha;
-	goLoad('https://rawgit.com/petrosh/domtool/' + sha + '/dt.js');
+	if (!sha) {
+		goLoad('https://rawgit.com/petrosh/domtool/gh-pages/dt.js');
+	} else {
+		goLoad('dt.js');
+		// goLoad('https://cdn.rawgit.com/petrosh/domtool/' + sha + '/dt.js');
+	}
 }
 
 function loadAssets() {
