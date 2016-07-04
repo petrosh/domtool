@@ -18,8 +18,8 @@ function normal(sha) {
 	if (!sha) {
 		goLoad('https://rawgit.com/petrosh/domtool/gh-pages/dt.js');
 	} else {
-		goLoad('dt.js');
-		// goLoad('https://cdn.rawgit.com/petrosh/domtool/' + sha + '/dt.js');
+		// goLoad('dt.js');
+		goLoad('https://cdn.rawgit.com/petrosh/domtool/' + sha + '/dt.js');
 	}
 }
 
