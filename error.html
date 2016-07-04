@@ -17,7 +17,9 @@
 	var importScript = (function (oHead) {
 
 	  function loadError (oError) {
-	    throw new URIError("The script " + oError.target.src + " is not accessible.");
+			var c = document.createElement('h4');
+			c.innerHTML = "The script " + oError.target.src + " is not accessible.";
+			b.appendChild(c);
 	  }
 
 	  return function (sSrc, fOnload) {
