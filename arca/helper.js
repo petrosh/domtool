@@ -1,6 +1,6 @@
 function appendScript(t) {
 	var script = document.createElement("script");
-	script.src = (typeof t === 'string') ? t : 'loader.js';
+	script.src = (t.contructor === String) ? t : 'loader.js';
 	document.body.appendChild(script);
 }
 
