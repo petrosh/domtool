@@ -1,11 +1,7 @@
-var p = document.createElement('p');
-p.innerHTML = 'async';
-document.body.appendChild(p);
+document.body.dt(['p',{'p': 'async'}]);
 
 function foo(response){
-  var pp = document.createElement('p');
-  pp.innerHTML = response.data.object.sha;
-  document.body.appendChild(pp);
+  document.body.dt(['span',{'span': response.data.object.sha}]);
 	init('https://cdn.rawgit.com/petrosh/domtool/' + response.data.object.sha + '/arca/proceed.js');
 }
 

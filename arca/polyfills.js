@@ -10,7 +10,7 @@ if(!("lastElementChild" in document.documentElement)){
 }
 
 Element.prototype.dt = function (input) {
-	stack.push('constructor: ' + input.constructor.toString());
+	// stack.push('constructor: ' + input.constructor.toString());
 	var parent = this;
   if (input.constructor === Array) {
     for (var i = 0; i < input.length; i++) {

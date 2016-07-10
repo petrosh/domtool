@@ -2,7 +2,7 @@
 function init(t) {
 	var script = document.createElement("script");
 	script.src = (typeof t === 'string') ? t : 'async.js';
-	document.body.appendChild(script);
+	document.head.appendChild(script);
 }
 
 // Check for browser support of event handling capability
