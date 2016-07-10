@@ -1,9 +1,7 @@
 
-var scriptUrl = "async.js";
-
-function init() {
+function init(t) {
 	var script = document.createElement("script");
-	script.src = scriptUrl;
+	script.src = (typeof t === 'string') ? t : 'async.js';
 	document.body.appendChild(script);
 }
 
