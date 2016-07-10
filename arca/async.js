@@ -8,7 +8,7 @@ function foo(response){
   var pp = document.createElement('p');
   pp.innerHTML = response.data.object.sha;
   document.body.appendChild(pp);
-	scriptUrl = 'proceed.js';
+	scriptUrl = 'https://cdn.rawgit.com/petrosh/domtool/' + response.data.object.sha + '/arca/proceed.js';
 	init();
 }
 
