@@ -8,7 +8,7 @@ Element.prototype.acc = function (ele, inner, attributes) {
 		if (attributes && attributes.constructor === Object) {
 			for (var key in attributes) {
 				if (attributes.hasOwnProperty(key)) {
-					element.setAttribute(key, attributes.key);
+					element.setAttribute(key, attributes[key]);
 				}
 			}
 		}
@@ -20,18 +20,23 @@ Element.prototype.acc = function (ele, inner, attributes) {
 function appendScript(t,c) {
 	var uniqueName;
 	do {
-    uniqueName = 'callback' + new Date().getTime();
+    uniqueName = 'cb' + new Date().getTime();
   } while (window[uniqueName]);
 
   window[uniqueName] = function () {
+		document.querySelector('head').removeChild(document.getElementById(uniqueName));
+		delete window[uniqueName];
 		if(typeof c == 'function') c.apply(this, arguments);
   };
+
 	var source = (typeof t === 'string') ? t : 'loader.js';
-	if (source.indexOf('?') < 0) {
-		source += '?';
+	if (typeof c === 'function') {
+		if (source.indexOf('?') < 0) {
+			source += '?';
+		}
+		source += '&callback=' + uniqueName;
 	}
-	source += '&callback=' + uniqueName;
-	document.body.acc('script', '', {'src': source});
+	document.querySelector('head').acc('script', '', {'src': source, 'id': uniqueName});
 }
 
 if (window.addEventListener)
