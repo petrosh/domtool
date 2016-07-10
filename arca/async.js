@@ -2,7 +2,7 @@ var p = document.createElement('p');
 p.innerHTML = 'ciao';
 document.body.appendChild(p);
 
-scriptUrl = 'https://api.github.com/repos/petrosh/domtool/git/refs/gh-pages?callback=foo';
+scriptUrl = 'https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages?callback=foo';
 
 function foo(response){
   var pp = document.createElement('p');
