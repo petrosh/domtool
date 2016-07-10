@@ -36,7 +36,7 @@ function appendScript(t,c) {
 		}
 		source += '&callback=' + uniqueName;
 	}
-	document.querySelector('head').acc('script', '', {'src': source, 'id': uniqueName});
+	document.getElementById('head').acc('script', '', {'src': source, 'id': uniqueName});
 }
 
 if (window.addEventListener)
