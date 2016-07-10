@@ -1,7 +1,11 @@
-document.body.dt(['p',{'p': 'proceed'}]);
+var p = document.createElement('p');
+p.innerHTML = 'proceed';
+document.body.appendChild(p);
 
 function coo(response){
-  document.body.dt(['p',{'p': response.data.length + ' link ' + response.meta.Link.length}]);
+  var ppp = document.createElement('p');
+  ppp.innerHTML = response.data.length + ' link ' + response.meta.Link.length;
+  document.body.appendChild(ppp);
 }
 
 init('https://api.github.com/repos/petrosh/domtool/commits?callback=coo');

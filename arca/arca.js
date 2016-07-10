@@ -1,4 +1,3 @@
-
 function init(t) {
 	var script = document.createElement("script");
 	script.src = (typeof t === 'string') ? t : 'async.js';
