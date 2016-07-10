@@ -9,7 +9,14 @@
 				font-family: monospace;
 			}
 		</style>
-		<script src="arca.js"></script>
+		<script src="helper.js"></script>
+		<script type="text/javascript">
+			if (window.addEventListener)
+				window.addEventListener("load", appendScript, false);
+			else if (window.attachEvent)
+				window.attachEvent("onload", appendScript);
+			else window.onload = appendScript;
+		</script>
 	</head>
 	<body></body>
 </html>
