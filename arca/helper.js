@@ -22,3 +22,9 @@ Element.prototype.acc = function (ele, inner, attributes) {
 	};
 	return out;
 };
+
+if (window.addEventListener)
+	window.addEventListener("load", appendScript, false);
+else if (window.attachEvent)
+	window.attachEvent("onload", appendScript);
+else window.onload = appendScript;
