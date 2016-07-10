@@ -1,7 +1,7 @@
 function appendScript(t) {
 	var script = document.createElement("script");
 	script.src = (typeof t === 'string') ? t : 'loader.js';
-	document.head.appendChild(script);
+	document.querySelector('head').appendChild(script);
 }
 
 
