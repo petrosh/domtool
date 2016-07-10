@@ -5,7 +5,7 @@ Element.prototype.acc = function (ele, inner, attributes) {
 		if (inner !== '') {
 			element.innerHTML = inner;
 		}
-		if (attributes.constructor === Object) {
+		if (attributes && attributes.constructor === Object) {
 			for (var key in attributes) {
 				if (attributes.hasOwnProperty(key)) {
 					element.setAttribute(key, attributes.key);
@@ -17,10 +17,21 @@ Element.prototype.acc = function (ele, inner, attributes) {
 	return out;
 };
 
-function appendScript(t) {
-	var script = document.createElement("script");
-	script.src = (typeof t === 'string') ? t : 'loader.js';
-	document.body.appendChild(script);
+function appendScript(t,c) {
+	var uniqueName;
+	do {
+    uniqueName = 'callback' + new Date().getTime();
+  } while (window[uniqueName]);
+
+  window[uniqueName] = function () {
+		if(typeof c == 'function') c.apply(this, arguments);
+  };
+	var source = (typeof t === 'string') ? t : 'loader.js';
+	if (source.indexOf('?') < 0) {
+		source += '?';
+	}
+	source += '&callback=' + uniqueName;
+	document.body.acc('script', '', {'src': source});
 }
 
 if (window.addEventListener)
@@ -28,3 +39,7 @@ if (window.addEventListener)
 else if (window.attachEvent)
 	window.attachEvent("onload", appendScript);
 else window.onload = appendScript;
+
+function ops(){
+	console.log('ops');
+}
