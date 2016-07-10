@@ -8,4 +8,4 @@ function coo(response){
   document.body.appendChild(ppp);
 }
 
-appendScript('https://api.github.com/repos/petrosh/domtool/commits?callback=coo&rnd=' + new Date().getTime() );
+appendScript('https://api.github.com/repos/petrosh/domtool/commits?callback=coo');
