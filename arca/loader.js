@@ -9,4 +9,4 @@ function foo(response){
 	appendScript('https://cdn.rawgit.com/petrosh/domtool/' + response.data.object.sha + '/arca/proceed.js');
 }
 
-appendScript('https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages?callback=foo&rnd=' + Math.floor(Date.now() * Math.random()));
+appendScript('https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages?callback=foo&rnd=' + Date.now();
