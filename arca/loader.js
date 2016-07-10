@@ -1,5 +1,5 @@
 var p = document.createElement('p');
-p.innerHTML = 'async';
+p.innerHTML = 'loader';
 document.body.appendChild(p);
 
 function foo(response){
