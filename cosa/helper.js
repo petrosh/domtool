@@ -24,7 +24,7 @@ function appendScript(t,c) {
   } while (window[uniqueName]);
 
   window[uniqueName] = function () {
-		document.body.parentNode.children[0].removeChild(document.getElementById(uniqueName));
+		document.body.removeChild(document.getElementById(uniqueName));
 		delete window[uniqueName];
 		if(typeof c == 'function') c.apply(this, arguments);
   };
@@ -36,7 +36,7 @@ function appendScript(t,c) {
 		}
 		source += '&callback=' + uniqueName;
 	}
-	document.body.parentNode.children[0].acc('script', '', {'src': source, 'id': uniqueName});
+	document.body.acc('script', '', {'src': source, 'id': uniqueName});
 }
 
 if (window.addEventListener)
