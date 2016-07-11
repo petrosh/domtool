@@ -19,10 +19,8 @@ Element.prototype.acc = function (ele, inner, attributes) {
 
 function appendScript(t) {
 	var source = (typeof t === 'string') ? t : 'loader.js';
-	if (source.indexOf('?') < 0) {
-    source += '?';
-  }
-	document.body.acc('script', '', {'src': source + '&' + new Date().getTime()});
+	if (source.indexOf('?') < 0) source += '?';
+	document.getElementById('scripts').acc('script', '', {'src': source + '&' + new Date().getTime()});
 }
 
 if (window.addEventListener)

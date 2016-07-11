@@ -1,11 +1,7 @@
-var p = document.createElement('p');
-p.innerHTML = 'loader';
-document.body.appendChild(p);
+document.body.acc('p', 'loader running');
 
 function foo(response){
-  var pp = document.createElement('p');
-  pp.innerHTML = response.data.object.sha;
-  document.body.appendChild(pp);
+  document.body.acc('p', ['sha', response.data.object.sha].join(', '));
 	appendScript('https://cdn.rawgit.com/petrosh/domtool/' + response.data.object.sha + '/cosa/proceed.js');
 }
 
