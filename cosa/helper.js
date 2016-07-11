@@ -19,7 +19,7 @@ Element.prototype.acc = function (ele, inner, attributes) {
 
 function appendScript(t,c) {
 	var source = (typeof t === 'string') ? t : 'loader.js';
-	document.body.acc('script', '', {'src': source, 'id': uniqueName});
+	document.body.acc('script', '', {'src': source});
 }
 
 if (window.addEventListener)
