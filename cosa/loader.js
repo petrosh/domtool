@@ -9,4 +9,4 @@ function foo(response){
 	appendScript('https://cdn.rawgit.com/petrosh/domtool/' + response.data.object.sha + '/cosa/proceed.js');
 }
 
-appendScript('https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages', foo);
+appendScript('https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages?callback=foo');

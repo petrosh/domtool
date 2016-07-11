@@ -17,7 +17,7 @@ Element.prototype.acc = function (ele, inner, attributes) {
 	return out;
 };
 
-function appendScript(t,c) {
+function appendScript(t) {
 	var source = (typeof t === 'string') ? t : 'loader.js';
 	document.body.acc('script', '', {'src': source});
 }
