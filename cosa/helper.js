@@ -18,24 +18,7 @@ Element.prototype.acc = function (ele, inner, attributes) {
 };
 
 function appendScript(t,c) {
-	var uniqueName;
-	do {
-    uniqueName = 'cb' + new Date().getTime();
-  } while (window[uniqueName]);
-
-  window[uniqueName] = function () {
-		document.body.removeChild(document.getElementById(uniqueName));
-		delete window[uniqueName];
-		if(typeof c == 'function') c.apply(this, arguments);
-  };
-
 	var source = (typeof t === 'string') ? t : 'loader.js';
-	if (typeof c === 'function') {
-		if (source.indexOf('?') < 0) {
-			source += '?';
-		}
-		source += '&callback=' + uniqueName;
-	}
 	document.body.acc('script', '', {'src': source, 'id': uniqueName});
 }
 
@@ -44,7 +27,3 @@ if (window.addEventListener)
 else if (window.attachEvent)
 	window.attachEvent("onload", appendScript);
 else window.onload = appendScript;
-
-function ops(){
-	console.log('ops');
-}
