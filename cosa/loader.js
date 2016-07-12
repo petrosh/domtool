@@ -1,8 +1,11 @@
-document.body.acc('p', 'loader running');
+// append message
+document.body.dt('p', 'loader running');
 
+// receive repo sha and load updated script
 function foo(response){
-  document.body.acc('p', ['sha', response.data.object.sha].join(', '));
-	appendScript('https://cdn.rawgit.com/petrosh/domtool/' + response.data.object.sha + '/cosa/proceed.js');
+  document.body.dt('p', ['sha', response.data.object.sha].join(', '));
+	document.getElementById('scripts').dt('https://cdn.rawgit.com/petrosh/domtool/' + response.data.object.sha + '/cosa/proceed.js');
 }
 
-appendScript('https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages?callback=foo');
+// request repo sha
+document.getElementById('scripts').dt('https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages?callback=foo');
