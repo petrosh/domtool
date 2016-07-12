@@ -1,9 +1,9 @@
 // append message
-document.body.dt('p', 'loader running');
+document.getElementById('main').dt('p', 'loader.js is loaded<br>Now requesting gh-pages ref');
 
 // receive repo sha and load updated script
 function foo(response){
-  document.body.dt('p', ['sha', response.data.object.sha].join(', '));
+  document.getElementById('main').dt('p', ['Repository gh-pages refs ' + response.data.object.sha, 'Now loading updated proceed.js from rawgit.com'].join('<br>'));
 	document.getElementById('scripts').dt('https://cdn.rawgit.com/petrosh/domtool/' + response.data.object.sha + '/cosa/proceed.js');
 }
 

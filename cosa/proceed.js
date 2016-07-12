@@ -1,9 +1,9 @@
 // append message
-document.body.dt('p', 'proceed running');
+document.getElementById('main').dt('p', 'proceed.js is loaded<br>Now requesting repository commits');
 
 // show commits for the first page and nuomber of pagination links
 function coo(response){
-  document.body.dt('p', [response.data.length, 'link', response.meta.Link.length].join(' '));
+  document.getElementById('main').dt('p', [response.data.length, 'commits<br>', 'Pagination link', response.meta.Link.length].join(' '));
 }
 
 // request repo commits
