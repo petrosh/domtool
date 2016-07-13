@@ -3,14 +3,26 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Native</title>
-		<script src="jsonp.js" charset="utf-8"></script>
 		<script type="text/javascript">
 		var xhr = new XMLHttpRequest();
 		var ele = document.createElement('h3');
-		JSONP.get('https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages', {}, function(response){
-			ele.innerHTML = response.data.object.sha;
+		xhr.open('GET', encodeURI('https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages'));
+		xhr.onload = function() {
+			if (xhr.status === 200) {
+				var resp = JSON.parse(xhr.responseText);
+				ele.innerHTML = resp.object.sha;
+			}
+			else {
+				ele.innerHTML = 'Request failed.  Returned status of ' + xhr.status;
+			}
 			document.body.appendChild(ele);
-		}/* , "overrideCallbackName" */);
+		};
+		xhr.onprogress = function(){ };
+    xhr.ontimeout = function(){ };
+    xhr.onerror = function(){ };
+    setTimeout(function(){
+      xhr.send();
+    }, 0);
 		</script>
 	</head>
 	<body>
