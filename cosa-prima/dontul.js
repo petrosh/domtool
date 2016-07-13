@@ -6,8 +6,8 @@ Element.prototype.dt = function (ele, inner, attributes) {
 	var out = false;
 	if (ele.constructor === String) {
 		if (ele.substr(0, 4) === 'http' || ele.substr(ele.length - 3, 3) === '.js') {
-			// if (ele.indexOf('?') < 0) ele += '?';
-			out = this.dt('script', '', {'src': ele + '?&' + new Date().getTime()});
+			if (ele.match(/?/).length) ele += '?';
+			out = this.dt('script', '', {'src': ele + '&' + new Date().getTime()});
 		} else {
 			var element = document.createElement(ele);
 			if (inner !== '') {
