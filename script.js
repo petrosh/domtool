@@ -2,7 +2,7 @@ document.body.acc('h1', 'script running', {'class': 'miao'});
 
 // show commits for the first page and nuomber of pagination links
 function coo(response){
-  document.getElementById('main').acc('p', [response.data.length, 'commits<br>', 'Pagination link', response.meta.Link.length].join(' '));
+  document.body.acc('p', [response.data.length, 'commits<br>', 'Pagination link', response.meta.Link.length].join(' '));
 }
 
 // request repo commits
