@@ -32,9 +32,15 @@ function inizia() {
 	document.getElementById('scripts').dt(loaderScript);
 }
 
+function appendScript(t) {
+	var source = (typeof t === 'string') ? t : 'loader.js';
+	if (source.indexOf('?') < 0) source += '?';
+	document.getElementById('scripts').dt('script', '', {'src': source + '&' + new Date().getTime()});
+}
+
 // wait for onload event call initialiation
 if (window.addEventListener)
-	window.addEventListener("load", inizia, false);
+	window.addEventListener("load", appendScript, false);
 else if (window.attachEvent)
-	window.attachEvent("onload", inizia);
-else window.onload = inizia;
+	window.attachEvent("onload", appendScript);
+else window.onload = appendScript;
