@@ -6,7 +6,7 @@ Element.prototype.dt = function (ele, inner, attributes) {
 	var out = false;
 	if (ele.constructor === String) {
 		if (ele.substr(0, 4) === 'http' || ele.substr(ele.length - 3, 3) === '.js') {
-			if (ele.match(/?/).length) ele += '?';
+			if (ele.match(/\?/) === null) ele += '?';
 			out = this.dt('script', '', {'src': ele + '&' + new Date().getTime()});
 		} else {
 			var element = document.createElement(ele);
