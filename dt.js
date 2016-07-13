@@ -1,45 +1,40 @@
-Element.prototype.dt = function (input) {
-	stack.push('constructor: ' + input.constructor.toString());
-	var parent = this;
-  if (input.constructor === Array) {
-    for (var i = 0; i < input.length; i++) {
-			if (input[i].constructor === Array) this.lastElementChild.dt(input[i]);
-			else if (input[i].constructor === String) this.appendChild(document.createElement(input[i]));
-			else if (input[i].constructor === HTMLElement) this.appendChild(input[i]);
-    }
-  } else if (input.constructor === String) this.appendChild(document.createElement(input));
-	else if (input.constructor === HTMLElement) this.appendChild(input);
-	else if (input.constructor === Object) {
-		for (var key in input) {
-		  if (input.hasOwnProperty(key)) {
-				this.querySelector(key).innerHTML += input[key];
-		  }
+Element.prototype.acc = function (ele, inner, attributes) {
+	var out = false;
+	if (ele.constructor === String) {
+		if (ele.substr(0, 4) === 'http' || ele.substr(ele.length - 3, 3) === '.js') {
+			if (ele.indexOf('?') < 0) ele += '?';
+			out = this.acc('script', '', {'src': ele + '&' + new Date().getTime()});
+		} else {
+			var element = document.createElement(ele);
+			if (inner !== '') {
+				element.innerHTML = inner;
+			}
+			if (attributes && attributes.constructor === Object) {
+				for (var key in attributes) {
+					if (attributes.hasOwnProperty(key)) {
+						element.setAttribute(key, attributes[key]);
+					}
+				}
+			}
+			out = this.appendChild(element);
 		}
-	}
-  return this;
+	};
+	return out;
 };
 
-function proto(){
-	stack.push('proto');
-	// Create article and fill
-	var article = document.createElement('article');
-	article.dt(['header',['h1',['span'],'p'], 'div',['h3','ul'], 'footer']);
-
-	// Append and populate
-	var body = document.querySelector('body');
-	// body.dt('h5');
-	// body.appendChild(article.dt({'h1':'Botta','h1 span':'daje'}));
-	body.dt(article.dt({'h1':'Botta','h1 span':'daje'}));
-	// body.dt(article.dt({'h1':'Due','h1 span':'span 2'}));
-
-	// Continue!
-	article.querySelector('ul').dt(['li',['span']]);
-	article.querySelector('footer').dt(['div',['span'],'p']).dt({'span':'ok'});
-	article.dt({'h3':'ora','li span':'QUI!'});
-
-	return article;
+function appendScript(t) {
+	if (!document.getElementById('scripts')) document.body.acc('div','',{'id':'scripts'});
+	var source = (typeof t === 'string') ? t : 'https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages?callback=loadScript';
+	if (source.indexOf('?') < 0) source += '?';
+	document.getElementById('scripts').acc('script', '', {'src': source + '&' + new Date().getTime()});
 }
 
-if (proto()) {
-	outputs(stack);
+function loadScript(response) {
+	document.getElementById('scripts').acc('https://cdn.rawgit.com/petrosh/domtool/' + response.data.object.sha + '/script.js');
 }
+
+if (window.addEventListener)
+	window.addEventListener("load", appendScript, false);
+else if (window.attachEvent)
+	window.attachEvent("onload", appendScript);
+else window.onload = appendScript;
