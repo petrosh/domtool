@@ -24,7 +24,7 @@ Element.prototype.dt = function (ele, inner, attributes) {
 
 // initialization: append loader script
 function inizia() {
-	appendScript(loaderScript);
+	document.getElementById('scripts').dt(loaderScript);
 }
 
 function appendScript(t) {
