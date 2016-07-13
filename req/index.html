@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>req</title>
+		<script type="text/javascript">
+		function callback(){
+			var resp = JSON.parse(this.response);
+			var out = document.createElement('h3');
+			out.innerHTML = resp.body;
+			document.body.appendChild(out);
+		}
+		function x(a,b,e,d,c){
+			// Url,callback,method,formdata or {key:val},placeholder
+			c=new XMLHttpRequest;
+			c.open(e||'get',a);
+			c.onload=b;
+			c.send(d||null)
+		}
+		var url = 'https://api.github.com/repos/petrosh/snippetrosh/issues/1';
+		x(url,callback);
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>
