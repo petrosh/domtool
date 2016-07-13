@@ -4,26 +4,41 @@
 		<meta charset="utf-8">
 		<title>Native</title>
 		<script type="text/javascript">
-		var xhr = new XMLHttpRequest();
-		if (window.XDomainRequest) xhr = new XDomainRequest();
-		var ele = document.createElement('h3');
-		xhr.open('GET', encodeURI('https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages?rnd=' + new Date().getTime()));
-		xhr.onload = function() {
-			if (xhr.status === 200) {
-				var resp = JSON.parse(xhr.responseText);
-				ele.innerHTML = resp.object.sha;
+
+		function go() {
+			var fileName = 'https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages?rnd=' + new Date().getTime();
+
+			var txtFile;
+
+			if (window.ActiveXObject)
+			{
+					try {// code for IE8
+							txtFile = new ActiveXObject("Msxml2.XMLHTTP");
+					} catch (e) {
+							try { // code for IE6, IE5
+									txtFile = new ActiveXObject("Microsoft.XMLHTTP");
+							} catch (e) {
+									txtFile = false;
+							}
+					}
 			}
-			else {
-				ele.innerHTML = 'Request failed.  Returned status of ' + xhr.status;
+			else if (window.XMLHttpRequest)
+			{
+					// code for IE7, Firefox, Chrome, Opera, Safari
+					txtFile = new XMLHttpRequest();
 			}
+
+			txtFile.open("GET",fileName,false);
+			txtFile.send();
+			var ele = document.createElement('h3');
+			ele.innerHTML = JSON.parse(txtFile.responseText)['object']['sha'];
 			document.body.appendChild(ele);
-		};
-		xhr.onprogress = function(){ };
-    xhr.ontimeout = function(){ };
-    xhr.onerror = function(){ };
-    setTimeout(function(){
-      xhr.send();
-    }, 0);
+		}
+		if (window.addEventListener)
+			window.addEventListener("load", go, false);
+		else if (window.attachEvent)
+			window.attachEvent("onload", go);
+		else window.onload = go;
 		</script>
 	</head>
 	<body>
