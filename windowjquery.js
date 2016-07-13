@@ -6,6 +6,7 @@ if (!window.jQuery) {
 		$( "body" ).append($( "p" ).text( "Loaded" ));
 		$.getJSON('https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages', function(data) {
 			$('body').append($('p').text('ennamo'));
+			console.log(data);
 		});
 	});
 }
