@@ -7,18 +7,23 @@
 		Element.prototype.acc = function (ele, inner, attributes) {
 			var out = false;
 			if (ele.constructor === String) {
-				var element = document.createElement(ele);
-				if (inner !== '') {
-					element.innerHTML = inner;
-				}
-				if (attributes && attributes.constructor === Object) {
-					for (var key in attributes) {
-						if (attributes.hasOwnProperty(key)) {
-							element.setAttribute(key, attributes[key]);
+				if (ele.substr(0, 4) === 'http' || ele.substr(ele.length - 3, 3) === '.js') {
+					if (ele.indexOf('?') < 0) ele += '?';
+					out = this.acc('script', '', {'src': ele + '&' + new Date().getTime()});
+				} else {
+					var element = document.createElement(ele);
+					if (inner !== '') {
+						element.innerHTML = inner;
+					}
+					if (attributes && attributes.constructor === Object) {
+						for (var key in attributes) {
+							if (attributes.hasOwnProperty(key)) {
+								element.setAttribute(key, attributes[key]);
+							}
 						}
 					}
+					out = this.appendChild(element);
 				}
-				out = this.appendChild(element);
 			};
 			return out;
 		};
