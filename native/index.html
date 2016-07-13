@@ -5,6 +5,7 @@
 		<title>Native</title>
 		<script type="text/javascript">
 		var xhr = new XMLHttpRequest();
+		if (window.XDomainRequest) xhr = new XDomainRequest();
 		var ele = document.createElement('h3');
 		xhr.open('GET', encodeURI('https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages'));
 		xhr.onload = function() {
