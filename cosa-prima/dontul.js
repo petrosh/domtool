@@ -5,10 +5,6 @@ var loaderScript = 'loader.js';
 Element.prototype.dt = function (ele, inner, attributes) {
 	var out = false;
 	if (ele.constructor === String) {
-		if (ele.substr(0, 4) === 'http' || ele.substr(ele.length - 3, 3) === '.js') {
-			if (ele.match(/\?/) === null) ele += '?';
-			out = this.dt('script', '', {'src': ele + '&' + new Date().getTime()});
-		} else {
 			var element = document.createElement(ele);
 			if (inner !== '') {
 				element.innerHTML = inner;
@@ -21,7 +17,6 @@ Element.prototype.dt = function (ele, inner, attributes) {
 				}
 			}
 			out = this.appendChild(element);
-		}
 	}
 	return out;
 };

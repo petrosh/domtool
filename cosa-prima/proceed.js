@@ -7,4 +7,4 @@ function coo(response){
 }
 
 // request repo commits
-document.getElementById('scripts').dt('https://api.github.com/repos/petrosh/domtool/commits?callback=coo');
+appendScript('https://api.github.com/repos/petrosh/domtool/commits?callback=coo');
