@@ -1,4 +1,4 @@
-document.body.acc('h1', 'script running', {'class': 'miao'});
+document.body.acc('h1', location.href, {'class': 'miao'});
 
 // show commits for the first page and nuomber of pagination links
 function coo(response){
