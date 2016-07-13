@@ -3,31 +3,28 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Native</title>
-		<script type="text/javascript">
-
-
-		var ele=document.createElement('h2');
-			var request = new XMLHttpRequest();
-			request.open('GET', 'https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages', true);
-
-			request.onreadystatechange = function() {
-			  if (this.readyState === 4) {
-			    if (this.status >= 200 && this.status < 400) {
-			      // Success!
-			      var resp = JSON.parse(this.responseText);
-						ele.innerHTML = resp.object.sha;
-						document.body.appendChild(ele);
-			    } else {
-			      // Error :(
-			    }
-			  }
-			};
-
-			request.send();
-			request = null;
-		</script>
 	</head>
 	<body>
+		<script type="text/javascript">
+		var ele=document.createElement('h2');
+		ele.innerHTML = 'ok';
+		var request = new XMLHttpRequest();
+		request.open('GET', 'https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages', true);
+		request.onreadystatechange = function() {
+		  if (this.readyState === 4) {
+		    if (this.status >= 200 && this.status < 400) {
+		      // Success!
+		      // var resp = JSON.parse(this.responseText);
+					// ele.innerHTML = resp.object.sha;
+					document.body.appendChild(ele);
+		    } else {
+		      // Error :(
+		    }
+		  }
+		};
 
+		request.send();
+		request = null;
+		</script>
 	</body>
 </html>
