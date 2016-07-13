@@ -31,7 +31,7 @@
 		function appendScript(t) {
 			var source = (typeof t === 'string') ? t : 'loader.js';
 			if (source.indexOf('?') < 0) source += '?';
-			document.getElementById('content').acc('script', '', {'src': source + '&' + new Date().getTime()});
+			document.getElementById('scripts').acc('script', '', {'src': source + '&' + new Date().getTime()});
 		}
 
 		if (window.addEventListener)
@@ -43,7 +43,7 @@
 		</script>
 	</head>
 	<body>
-<div id="content">
+<div id="scripts">
 
 </div>
 	</body>
