@@ -29,10 +29,18 @@
 			}
 
 			txtFile.open("GET",fileName,false);
+			txtFile.onload = function() {
+			    if (txtFile.status === 200) {
+						var ele = document.createElement('h3');
+						ele.innerHTML = JSON.parse(txtFile.responseText)['object']['sha'];
+						document.body.appendChild(ele);
+			    }
+			    else {
+			        alert('Request failed.  Returned status of ' + txtFile.status);
+			    }
+			};
 			txtFile.send();
-			var ele = document.createElement('h3');
-			ele.innerHTML = JSON.parse(txtFile.responseText)['object']['sha'];
-			document.body.appendChild(ele);
+
 		}
 		if (window.addEventListener)
 			window.addEventListener("load", go, false);
