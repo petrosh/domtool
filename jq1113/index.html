@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>jq1113</title>
+		<script src="//code.jquery.com/jquery-1.11.3.js" charset="utf-8"></script>
+		<script type="text/javascript">
+
+		if (!window.jQuery) {
+			window.location.href="fallback.html";
+		} else {
+			$( document ).ready(function() {
+				$( "p" ).text( "The DOM is now loaded and can be manipulated." );
+				$( "body" ).append($( "p" ).text( "Loaded" ));
+				$.getJSON('https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages', function(data) {
+					$('body').append($('p').text(data.object.sha));
+				});
+			});
+		}
+		</script>
+	</head>
+	<body>
+<p>
+	
+</p>
+	</body>
+</html>
