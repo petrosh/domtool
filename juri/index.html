@@ -8,8 +8,17 @@
 <script src="juri.min.js"></script>
 <script>
 	jUri.animateAnchorLinks();
-	var x = jUri.ajax({url:'https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages'});
-	console.log(x);
+	function zio(r) {
+		document.getElementById('qui').innerHTML = r.object.sha;
+		// var ele = document.createElement('p');
+		// ele.innerHTML = r.object.sha;
+		// document.body.appendChild(ele);
+	}
+	var x = jUri.ajax({
+		url:'https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages',
+		response: 'json',
+		callback: zio
+	});
 </script>
 
 <style>
@@ -28,7 +37,7 @@
 
 </form>
 	<hgroup>
-		<h1>jUri documentation (v0.4)</h1>
+		<h1 id="qui">jUri documentation (v0.4)</h1>
 	</hgroup>
 
 	<p>Version 0.4</p>
