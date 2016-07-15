@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Prometti</title>
+		<script src="promise.js" charset="utf-8"></script>
+		<script type="text/javascript">
+
+		function get(url) {
+		  // Return a new promise.
+		  return new Promise(function(resolve, reject) {
+		    // Do the usual XHR stuff
+		    var req = new XMLHttpRequest();
+		    req.open('GET', url);
+
+		    req.onload = function() {
+		      // This is called even on 404 etc
+		      // so check the status
+		      if (req.status == 200) {
+		        // Resolve the promise with the response text
+		        resolve(req.response);
+		      }
+		      else {
+		        // Otherwise reject with the status text
+		        // which will hopefully be a meaningful error
+		        reject(Error(req.statusText));
+		      }
+		    };
+
+		    // Handle network errors
+		    req.onerror = function() {
+		      reject(Error("Network Error"));
+		    };
+
+		    // Make the request
+		    req.send();
+		  });
+		}
+
+		function addTextToPage(text) {
+			var div = document.createElement('div');
+			div.innerHTML = text;
+			document.body.appendChild(div);
+		}
+		function addHtmlToPage(text) {
+			var div = document.createElement('div');
+			div.innerHTML = text;
+			document.body.appendChild(div);
+		}
+		function getJSON(url) {
+		  return get(url).then(JSON.parse);
+		}
+
+		getJSON('story.json').then(function(story) {
+		  addHtmlToPage(story.heading);
+
+		  // Take an array of promises and wait on them all
+		  return Promise.all(
+		    // Map our array of chapter urls to
+		    // an array of chapter json promises
+		    story.chapterUrls.map(getJSON)
+		  );
+		}).then(function(chapters) {
+		  // Now we have the chapters jsons in order! Loop through…
+		  chapters.forEach(function(chapter) {
+		    // …and add to the page
+		    addHtmlToPage(chapter.html);
+		  });
+		  addTextToPage("All done");
+		}).catch(function(err) {
+		  // catch any error that happened so far
+		  addTextToPage("Argh, broken: " + err.message);
+		}).then(function() {
+		  document.querySelector('.spinner').style.display = 'none';
+		});
+		</script>
+	</head>
+	<body>
+<div class="spinner">
+	spinner
+</div>
+	</body>
+</html>
