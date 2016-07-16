@@ -6,4 +6,4 @@ function coo(response){
 }
 
 // request repo commits
-document.getElementById('scripts').d([g().apiRepo, 'commits?callback=coo'].join('/'));
+document.getElementById('scripts').d([g.repoApi, 'commits?callback=coo'].join('/'));
