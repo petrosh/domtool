@@ -1,4 +1,4 @@
-g.dom(document.body, 'h1', location.href, {'class': 'miao'});
+g.dom(document.body, 'h1', g.refs.ghpages, {'class': 'miao'});
 
 // show commits for the first page and nuomber of pagination links
 function coo(response){
