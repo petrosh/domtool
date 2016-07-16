@@ -1,27 +1,3 @@
-Element.prototype.d = function (ele, inner, attributes) {
-	var out = false;
-	if (ele.constructor === String) {
-		if (ele.substr(0, 4) === 'http' || ele.substr(ele.length - 3, 3) === '.js') {
-			if (ele.indexOf('?') < 0) ele += '?';
-			out = this.d('script', '', {'src': ele + '&' + new Date().getTime()});
-		} else {
-			var element = document.createElement(ele);
-			if (inner !== '') {
-				element.innerHTML = inner;
-			}
-			if (attributes && attributes.constructor === Object) {
-				for (var key in attributes) {
-					if (attributes.hasOwnProperty(key)) {
-						element.setAttribute(key, attributes[key]);
-					}
-				}
-			}
-			out = this.appendChild(element);
-		}
-	}
-	return out;
-};
-
 var g = {
 	urlSlash: window.location.pathname.split('/'),
 	urlArray: window.location.host.split('.'),
@@ -36,12 +12,35 @@ var g = {
 	get rawStatic () { return ['https://rawgit.com', g.repoFullname].join('/'); },
 	get rawCdn () { return ['https://cdn.rawgit.com', g.repoFullname].join('/'); },
 	get htmlHead () { return document.getElementsByTagName('head')[0]; },
+	dom: function (target, ele, inner, attributes) {
+		var out = false;
+		if (ele.constructor === String) {
+			if (ele.substr(0, 4) === 'http' || ele.substr(ele.length - 3, 3) === '.js') {
+				if (ele.indexOf('?') < 0) ele += '?';
+				out = target.d('script', '', {'src': ele + '&' + new Date().getTime()});
+			} else {
+				var element = document.createElement(ele);
+				if (inner !== '') {
+					element.innerHTML = inner;
+				}
+				if (attributes && attributes.constructor === Object) {
+					for (var key in attributes) {
+						if (attributes.hasOwnProperty(key)) {
+							element.setAttribute(key, attributes[key]);
+						}
+					}
+				}
+				out = target.appendChild(element);
+			}
+		}
+		return out;
+	},
 	get init () {
-		return g.htmlHead.d(g.repoApi + '/git/refs/heads/gh-pages?callback=g.loadScript');
+		return g.dom(g.htmlHead, g.repoApi + '/git/refs/heads/gh-pages?callback=g.loadScript');
 	},
 	loadScript: function(response) {
 		g.refs.ghpages = response.data.object.sha;
-		g.htmlHead.d([g.rawCdn, g.refs.ghpages, 'script.js'].join('/'));
+		g.dom(g.htmlHead, [g.rawCdn, g.refs.ghpages, 'script.js'].join('/'));
 	}
 };
 
