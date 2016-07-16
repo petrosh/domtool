@@ -31,20 +31,20 @@ var g = {
 	get repoOwner () { return this.urlArray[0]; },
 	get repoFullname () { return [this.repoOwner, this.repoName].join('/'); },
 	get repoHome () { return 'https://' + this.repoOwner + '.github.io/' + this.repoName; },
-	get apiRepo () { return [this.apiRepos, this.repoFullname].join('/'); },
+	get repoApi () { return [this.apiRepos, this.repoFullname].join('/'); },
 	get rawStatic () { return ['https://rawgit.com', g.repoFullname].join('/'); },
 	get rawCdn () { return ['https://cdn.rawgit.com', g.repoFullname].join('/'); },
 };
 
 function appendScript(t) {
 	if (!document.getElementById('scripts')) document.body.d('div','',{'id':'scripts'});
-	var source = (typeof t === 'string') ? t : 'https://api.github.com/repos/petrosh/domtool/git/refs/heads/gh-pages?callback=loadScript';
+	var source = (typeof t === 'string') ? t : g.repoApi + '/git/refs/heads/gh-pages?callback=loadScript';
 	if (source.indexOf('?') < 0) source += '?';
 	document.getElementById('scripts').d('script', '', {'src': source + '&' + new Date().getTime()});
 }
 
 function loadScript(response) {
-	document.getElementById('scripts').d([g.rawCdn, g.repoFullname, response.data.object.sha, 'script.js'].join('/'));
+	document.getElementById('scripts').d([g.rawCdn, response.data.object.sha, 'script.js'].join('/'));
 }
 
 if (window.addEventListener)
