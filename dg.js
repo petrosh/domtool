@@ -17,7 +17,7 @@ var g = {
 		if (ele.constructor === String) {
 			if (ele.substr(0, 4) === 'http' || ele.substr(ele.length - 3, 3) === '.js') {
 				if (ele.indexOf('?') < 0) ele += '?';
-				out = target.d('script', '', {'src': ele + '&' + new Date().getTime()});
+				out = g.dom(target, 'script', '', {'src': ele + '&' + new Date().getTime()});
 			} else {
 				var element = document.createElement(ele);
 				if (inner !== '') {
