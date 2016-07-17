@@ -1,29 +1,3 @@
-Element.prototype.G = function (ele, inner, attributes) {
-	var out = false;
-	if (ele.constructor === String) {
-		if (ele.substr(0, 4) === 'http' || ele.substr(ele.length - 3, 3) === '.js') {
-			if (ele.indexOf('?') < 0) ele += '?';
-			out = this.G('script', '', {'src': ele + '&' + new Date().getTime()});
-		} else {
-			var element = G.domNew(ele);
-			if (inner) {
-				element.innerHTML = inner;
-			}
-			if (attributes && attributes.constructor === Object) {
-				for (var key in attributes) {
-					if (attributes.hasOwnProperty(key)) {
-						element.setAttribute(key, attributes[key]);
-					}
-				}
-			}
-			out = this.appendChild(element);
-		}
-	} else if (ele.constructor === HTMLElement) {
-		out = this.appendChild(ele);
-	}
-	return out;
-};
-
 var G = {
 	urlSlash: window.location.pathname.split('/'),
 	urlArray: window.location.host.split('.'),
@@ -40,16 +14,40 @@ var G = {
 	get repoApi () { return [this.apiRepos, this.repoFullname].join('/'); },
 	get rawStatic () { return ['https://rawgit.com', G.repoFullname].join('/'); },
 	get rawCdn () { return ['https://cdn.rawgit.com', G.repoFullname].join('/'); },
-	get htmlHead () { return document.getElementsByTagName('head')[0]; },
 	get init () {
-		return G.htmlHead.G(G.repoApi + '/git/refs/heads/gh-pages?callback=G.gotSha');
+		return G.loadScript(G.repoApi + '/git/refs/heads/gh-pages?callback=G.gotSha');
 	},
 	gotSha: function (response) {
 		G.refs.ghpages = response.data.object.sha;
-		return G.htmlHead.G([G.rawCdn, G.refs.ghpages, 'script.js'].join('/'));
+		return G.loadScript([G.rawCdn, G.refs.ghpages, 'script.js'].join('/'));
 	},
-	domNew: function (tag) {
-		return (document.createElement(tag)) ? document.createElement(tag) : false;
+	ac: function (target, element) {
+		if (element.constructor === Array) {
+			for (var i = 0; i < element.length; i++) {
+				target.appendChild(element[i]);
+			}
+			return target;
+		} else {
+			return target.appendChild(element);
+		}
+	},
+	loadScript: function (s) {
+		if (s.indexOf('?') < 0) s += '?';
+		G.ac(document.getElementsByTagName('head')[0], G.domNew('script', '', {'src': s + '&' + new Date().getTime()}));
+	},
+	domNew: function (tag, inner, attributes) {
+		var element = document.createElement(tag);
+		if (inner) {
+			element.innerHTML = inner;
+		}
+		if (attributes && attributes.constructor === Object) {
+			for (var key in attributes) {
+				if (attributes.hasOwnProperty(key)) {
+					element.setAttribute(key, attributes[key]);
+				}
+			}
+		}
+		return element;
 	},
 	query: function (selector) {
 		return (document.querySelector(selector)) ? document.querySelector(selector) : false;
