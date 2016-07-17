@@ -13,18 +13,18 @@ var G = {
 		for (var i = 2; i < folders.length -1; i++) {
 			if (folders[i] !== '') arr.push(folders[i]);
 		}
-		return (arr.length) ? arr.join('/') : false;
+		return (arr.length) ? '/' + arr.join('/') : '';
 	},
 	get repoOwner () { return this.urlArray[0]; },
 	get repoFullname () { return [this.repoOwner, this.repoName].join('/'); },
-	get repoUrl () { return 'https://github.com/' + G.repoFullname; },
-	get repoSshot () { return 'https://developer.microsoft.com/en-us/microsoft-edge/tools/screenshots/#https://' + G.repoOwner + '.github.io/' + G.repoName; },
+	get repoUrl () { return 'https://github.com/' + G.repoFullname + G.repoFolder; },
+	get repoSshot () { return 'https://developer.microsoft.com/en-us/microsoft-edge/tools/screenshots/#https://' + G.repoOwner + '.github.io/' + G.repoName + G.repoFolder; },
 	get repoHome () { return 'https://' + this.repoOwner + '.github.io/' + this.repoName; },
 	get repoApi () { return [this.apiRepos, this.repoFullname].join('/'); },
 	get rawStatic () { return ['https://rawgit.com', G.repoFullname].join('/'); },
 	get rawCdn () { return ['https://cdn.rawgit.com', G.repoFullname].join('/'); },
 	get getSha () {
-		return G.loadScript(G.repoApi + '/git/refs/heads/gh-pages?callback=G.gotSha');
+		return G.loadScript(G.repoApi + '/git/refs/heads/gh-pages?callback=G.gotSha&t=' + new Date().getTime());
 	},
 	gotSha: function (response) {
 		G.refs.ghpages = response.data.object.sha;
