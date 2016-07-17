@@ -23,7 +23,7 @@ var G = {
 	get repoApi () { return [this.apiRepos, this.repoFullname].join('/'); },
 	get rawStatic () { return ['https://rawgit.com', G.repoFullname].join('/'); },
 	get rawCdn () { return ['https://cdn.rawgit.com', G.repoFullname].join('/'); },
-	get init () {
+	get getSha () {
 		return G.loadScript(G.repoApi + '/git/refs/heads/gh-pages?callback=G.gotSha');
 	},
 	gotSha: function (response) {
@@ -59,13 +59,42 @@ var G = {
 		}
 		return element;
 	},
-	query: function (selector) {
-		return (document.querySelector(selector)) ? document.querySelector(selector) : false;
+	query: function (selector, parent) {
+		if (parent && parent.querySelector(selector))
+			return parent.querySelector(selector);
+		else if (document.querySelector(selector))
+			return document.querySelector(selector);
+		return false;
+	},
+	req: function(url, callback, method, accept, data) {
+		var xhr = new XMLHttpRequest();
+		xhr.setRequestHeader('Accept', accept || 'application/vnd.github.v3.full+json');
+		xhr.open(method || 'get', url, true);
+		// if (userToken && atob(userToken)) {
+		// 	xhr.setRequestHeader( 'Authorization', 'token ' + atob(userToken) );
+		// 	userLogged = true;
+		// }
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState == 4) {
+	      document.body.classList.remove('request');
+	      if (xhr.status == 200 ||  xhr.status == 201 ||  xhr.status == 204) {
+	        if (typeof callback == 'function') {
+	          var response = (accept.indexOf('html') > -1) ? xhr.responseText : JSON.parse(xhr.responseText);
+	          callback.apply(response);
+	        }
+	      }
+	      if (xhr.status >= 400) {
+          console.log( xhr );
+	      }
+	    }
+	  };
+	  document.body.classList.add('request');
+	  xhr.send( data );
 	}
 };
 
 if (window.addEventListener)
-	window.addEventListener("load", G.init, false);
+	window.addEventListener("load", G.getSha, false);
 else if (window.attachEvent)
-	window.attachEvent("onload", G.init);
-else window.onload = G.init;
+	window.attachEvent("onload", G.getSha);
+else window.onload = G.getSha;
