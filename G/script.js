@@ -8,5 +8,5 @@ G.ac(section, G.domNew('h1', 'Readme'));
 G.req([G.repoApi, 'contents', G.repoFolder, 'README.md'].join('/'), leggimi, 'get', 'application/vnd.github.v3.html', {ref: 'gh-pages'});
 
 function leggimi () {
-	console.log(this);
+	section.innerHTML += this.toString();
 }
