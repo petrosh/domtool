@@ -10,7 +10,8 @@ function coo(response){
 	G.repoCommits = response.data;
 	section.G('h2', [response.data.length, 'commits<br>', 'Pagination link', response.meta.Link.length].join(' '));
   var ul = G.domNew('ul');
-	section.G(ul);
+	// section.G(ul);
+  section.appendChild(ul);
 	for (var i = 0; i < G.repoCommits.length; i++) {
 		var commessa = G.repoCommits[i];
 		var li = G.domNew('li');
