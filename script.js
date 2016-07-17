@@ -32,8 +32,15 @@ function pagination () {
 		var links = G.repoCommitsLinks;
 		for (var i = 0; i < links.length; i++) {
 			if (links[i][1].rel === 'next') {
-				G.ac(section, G.domNew('p', links[i][0]));
+				var nextLink = G.domNew('a', 'next');
+				nextLink.addEventListener('click', nextPage);
+				G.ac(section, nextLink);
 			}
 		}
 	}
+}
+
+function nextPage (event) {
+	event.preventDefault();
+	G.loadScript(links[i][0]);
 }
