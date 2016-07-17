@@ -1,7 +1,7 @@
 var section = G.query('section');
 var footer = G.query('footer div.content');
 footer.G('a', 'Repository', {href: G.repoUrl});
-footer.G('a', 'Screenshot', {href: G.repoSshot});
+footer.G('a', 'Screenshots', {href: G.repoSshot});
 section.G('h1', 'gh-pages refs head');
 section.G('h3', G.refs.ghpages);
 
@@ -9,14 +9,15 @@ section.G('h3', G.refs.ghpages);
 function coo(response){
 	G.repoCommits = response.data;
 	section.G('h2', [response.data.length, 'commits<br>', 'Pagination link', response.meta.Link.length].join(' '));
-  section.G('ul');
+	section.G('ul');
 	for (var i = 0; i < G.repoCommits.length; i++) {
-    var commessa = G.repoCommits[i];
-    var li = 'li'.G();
-    var code = 'code'.G();
-    code.G('a', commessa.sha.substr(0,7), {href: commessa.html_url});
-    li.appendChild(code);
-    li.innerHTML += ' ' + commessa.commit.message;
+		var commessa = G.repoCommits[i];
+		var li = 'li'.G();
+		var code = 'code'.G();
+		code.G('a', commessa.sha.substr(0,7), {href: commessa.html_url});
+		li.appendChild(code);
+		li.innerHTML += ' ' + commessa.commit.message;
+    console.log(li);
 		G.query('ul').G(li);
 	}
 }
