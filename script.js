@@ -11,16 +11,16 @@ function coo(response){
 	G.ac(section, G.domNew('h2', [response.data.length, 'commits<br>', 'Pagination link', response.meta.Link.length].join(' ')));
   var ul = G.domNew('ul');
 	// section.G(ul);
-  section.ac(ul);
+  G.ac(section, ul);
 	for (var i = 0; i < G.repoCommits.length; i++) {
 		var commessa = G.repoCommits[i];
 		var li = G.domNew('li');
 		var code = G.domNew('code');
 		G.ac(code, G.domNew('a', commessa.sha.substr(0,7), {href: commessa.html_url}));
-		li.ac(code);
+		G.ac(li, code);
 		li.innerHTML += ' &ndash; ' + commessa.commit.message;
-		// ul.G(li);
-    document.querySelector('ul').appendChild(li);
+		G.ac(ul, li);
+    // document.querySelector('ul').appendChild(li);
 	}
 }
 
