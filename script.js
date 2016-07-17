@@ -8,7 +8,7 @@ G.ac(section, G.domNew('h3', G.refs.ghpages));
 // show commits for the first page and nuomber of pagination links
 function coo(response){
 	G.repoCommits = response.data;
-	G.ac(section, domNew('h2', [response.data.length, 'commits<br>', 'Pagination link', response.meta.Link.length].join(' ')));
+	G.ac(section, G.domNew('h2', [response.data.length, 'commits<br>', 'Pagination link', response.meta.Link.length].join(' ')));
   var ul = G.domNew('ul');
 	// section.G(ul);
   section.ac(ul);
