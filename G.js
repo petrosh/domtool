@@ -1,3 +1,34 @@
+Element.prototype.G = function (ele, inner, attributes) {
+	var out = false;
+	if (ele.constructor === String) {
+		if (ele.substr(0, 4) === 'http' || ele.substr(ele.length - 3, 3) === '.js') {
+			if (ele.indexOf('?') < 0) ele += '?';
+			out = this.G('script', '', {'src': ele + '&' + new Date().getTime()});
+		} else {
+			var element = G.domNew(ele);
+			if (inner) {
+				element.innerHTML = inner;
+			}
+			if (attributes && attributes.constructor === Object) {
+				for (var key in attributes) {
+					if (attributes.hasOwnProperty(key)) {
+						element.setAttribute(key, attributes[key]);
+					}
+				}
+			}
+			out = this.appendChild(element);
+		}
+	} else if (ele.constructor === HTMLElement) {
+		out = this.appendChild(ele);
+	}
+	return out;
+};
+
+String.prototype.G = function (tag) {
+	var element = document.createElement(tag);
+	return this.appendChild(element);
+};
+
 var G = {
 	urlSlash: window.location.pathname.split('/'),
 	urlArray: window.location.host.split('.'),
@@ -15,35 +46,16 @@ var G = {
 	get rawStatic () { return ['https://rawgit.com', G.repoFullname].join('/'); },
 	get rawCdn () { return ['https://cdn.rawgit.com', G.repoFullname].join('/'); },
 	get htmlHead () { return document.getElementsByTagName('head')[0]; },
-	dom: function (target, ele, inner, attributes) {
-		var out = false;
-		if (ele.constructor === String) {
-			if (ele.substr(0, 4) === 'http' || ele.substr(ele.length - 3, 3) === '.js') {
-				if (ele.indexOf('?') < 0) ele += '?';
-				out = G.dom(target, 'script', '', {'src': ele + '&' + new Date().getTime()});
-			} else {
-				var element = G.domNew(ele);
-				if (inner) {
-					element.innerHTML = inner;
-				}
-				if (attributes && attributes.constructor === Object) {
-					for (var key in attributes) {
-						if (attributes.hasOwnProperty(key)) {
-							element.setAttribute(key, attributes[key]);
-						}
-					}
-				}
-				out = target.appendChild(element);
-			}
-		}
-		return out;
-	},
 	get init () {
-		return G.dom(G.htmlHead, G.repoApi + '/git/refs/heads/gh-pages?callback=G.loadScript');
+		return G.htmlHead.G('script', '', {src: G.repoApi + '/git/refs/heads/gh-pages?callback=G.gotSha'});
 	},
-	loadScript: function (response) {
+	gotSha: function (response) {
 		G.refs.ghpages = response.data.object.sha;
-		G.dom(G.htmlHead, [G.rawCdn, G.refs.ghpages, 'script.js'].join('/'));
+		return G.loadScript;
+	},
+	loadScript: function (s) {
+		var file = (s || [G.rawCdn, G.refs.ghpages, 'script.js'].join('/'));
+		return G.htmlHead.G('script', '', {src: file});
 	},
 	domNew: function (tag) {
 		return (document.createElement(tag)) ? document.createElement(tag) : false;
