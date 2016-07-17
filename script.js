@@ -12,8 +12,8 @@ function coo(response){
   section.G('ul');
 	for (var i = 0; i < G.repoCommits.length; i++) {
     var commessa = G.repoCommits[i];
-    var li = 'li'.G;
-    var code = 'code'.G;
+    var li = 'li'.G();
+    var code = 'code'.G();
     code.G('a', commessa.sha.substr(0,7), {href: commessa.html_url});
     li.appendChild(code);
     li.innerHTML += ' ' + commessa.commit.message;
