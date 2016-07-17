@@ -1,7 +1,7 @@
 var section = G.query('section');
 var footer = G.query('footer div.content');
-G.ac(footer, G.domNew('a', 'Repository', {href: G.repoUrl}));
-G.ac(footer, G.domNew('a', 'Screenshots', {href: G.repoSshot}));
+G.ac(footer, [G.domNew('a', 'Repository', {href: G.repoUrl}), G.domNew('a', 'Screenshots', {href: G.repoSshot})]);
+// G.ac(footer, G.domNew('a', 'Screenshots', {href: G.repoSshot}));
 G.ac(section, [G.domNew('h1', 'Readme'), G.domNew('h1', 'domtool gh-pages refs head')]);
 G.ac(section, G.domNew('h3', G.refs.ghpages));
 
