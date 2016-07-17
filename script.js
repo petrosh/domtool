@@ -12,12 +12,12 @@ function coo(response){
   G.dom(section, 'ul');
 	for (var i = 0; i < G.repoCommits.length; i++) {
     var commessa = G.repoCommits[i];
-    var li = G.query('li');
-    var code = G.query('code');
+    var li = G.domNew('li');
+    var code = G.domNew('code');
     G.dom(code, 'a', commessa.sha.substr(0,7), {href: commessa.html_url});
     li.appendChild(code);
     li.innerHTML += ' ' + commessa.commit.message;
-		section.querySelector('ul').appendChild(li);
+		G.dom(G.query('ul'), li);
 	}
 }
 
