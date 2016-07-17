@@ -25,8 +25,7 @@ Element.prototype.G = function (ele, inner, attributes) {
 };
 
 String.prototype.G = function (tag) {
-	var element = document.createElement(tag);
-	return this.appendChild(element);
+	return (document.createElement(tag)) ? document.createElement(tag) : false;
 };
 
 var G = {
