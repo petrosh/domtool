@@ -24,10 +24,6 @@ Element.prototype.G = function (ele, inner, attributes) {
 	return out;
 };
 
-String.prototype.G = function () {
-	return (document.createElement(this)) ? document.createElement(this) : false;
-};
-
 var G = {
 	urlSlash: window.location.pathname.split('/'),
 	urlArray: window.location.host.split('.'),

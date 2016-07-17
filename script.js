@@ -9,12 +9,12 @@ section.G('h3', G.refs.ghpages);
 function coo(response){
 	G.repoCommits = response.data;
 	section.G('h2', [response.data.length, 'commits<br>', 'Pagination link', response.meta.Link.length].join(' '));
-  var ul = 'ul'.G();
+  var ul = G.domNew('ul');
 	section.G(ul);
 	for (var i = 0; i < G.repoCommits.length; i++) {
 		var commessa = G.repoCommits[i];
-		var li = 'li'.G();
-		var code = 'code'.G();
+		var li = G.domNew('li');
+		var code = G.domNew('code');
 		code.G('a', commessa.sha.substr(0,7), {href: commessa.html_url});
 		li.appendChild(code);
 		li.innerHTML += ' ' + commessa.commit.message;
