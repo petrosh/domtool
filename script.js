@@ -8,7 +8,7 @@ G.ac(section, G.domNew('h3', G.refs.ghpages));
 // show commits for the first page and nuomber of pagination links
 function coo(response){
 	G.repoCommits = response.data;
-	G.repoCommitsMeta = response.meta;
+	G.repoCommitsLinks = response.meta.Link;
   var ul = G.domNew('ul');
   G.ac(section, ul);
 	for (var i = 0; i < G.repoCommits.length; i++) {
@@ -29,7 +29,7 @@ G.loadScript([G.repoApi, 'commits?callback=coo'].join('/'));
 
 function pagination () {
 	if (G.repoCommitsMeta.length) {
-		var links = G.repoCommitsMeta.Link;
+		var links = G.repoCommitsMeta;
 		for (var i = 0; i < links.length; i++) {
 			if (links[i][1].rel === 'next') {
 				G.ac(section, G.domNew('p', links[i][0]));
