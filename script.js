@@ -18,7 +18,8 @@ function coo(response){
 		code.G('a', commessa.sha.substr(0,7), {href: commessa.html_url});
 		li.appendChild(code);
 		li.innerHTML += ' ' + commessa.commit.message;
-		ul.G(li);
+		// ul.G(li);
+    document.querySelector('ul').appendChild(li);
 	}
 }
 
