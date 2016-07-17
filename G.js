@@ -28,7 +28,8 @@ var G = {
 	},
 	gotSha: function (response) {
 		G.refs.ghpages = response.data.object.sha;
-		return G.loadScript([G.rawCdn, G.refs.ghpages, 'script.js'].join('/'));
+		var file = (G.repoFolder) ? G.repoFolder + '/script.js' : 'script.js';
+		return G.loadScript([G.rawCdn, G.refs.ghpages, file].join('/'));
 	},
 	ac: function (target, element) {
 		if (element.constructor === Array) {
