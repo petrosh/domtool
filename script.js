@@ -20,7 +20,7 @@ function coo(response){
 		li.innerHTML += ' &ndash; ' + commessa.commit.message;
 		G.ac(ul, li);
 	}
-  G.ac(section, G.domNew('h2', response.data.length + 'commits, ' + response.meta.Link.length + 'Pagination links'));
+  G.ac(section, G.domNew('h2', response.data.length + 'commits, ' + response.meta.Link.length + ' Pagination links'));
 }
 
 // request repo commits
