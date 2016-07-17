@@ -9,6 +9,7 @@ var G = {
 	get repoOwner () { return this.urlArray[0]; },
 	get repoFullname () { return [this.repoOwner, this.repoName].join('/'); },
 	get repoUrl () { return 'https://github.com/' + G.repoFullname; },
+	get repoSshot () { return 'https://developer.microsoft.com/en-us/microsoft-edge/tools/screenshots/#https://' + G.repoOwner + 'github.io/' + G.repoName; },
 	get repoHome () { return 'https://' + this.repoOwner + '.github.io/' + this.repoName; },
 	get repoApi () { return [this.apiRepos, this.repoFullname].join('/'); },
 	get rawStatic () { return ['https://rawgit.com', G.repoFullname].join('/'); },
@@ -22,7 +23,7 @@ var G = {
 				out = G.dom(target, 'script', '', {'src': ele + '&' + new Date().getTime()});
 			} else {
 				var element = document.createElement(ele);
-				if (inner !== '') {
+				if (inner) {
 					element.innerHTML = inner;
 				}
 				if (attributes && attributes.constructor === Object) {
