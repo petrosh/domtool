@@ -2,14 +2,14 @@ var section = G.query('section');
 var footer = G.query('footer div.content');
 G.ac(footer, G.domNew('a', 'Repository', {href: G.repoUrl}));
 G.ac(footer, G.domNew('a', 'Screenshots', {href: G.repoSshot}));
-G.ac(section, G.domNew('h1', 'domtool gh-pages refs head'));
+G.ac(section, [G.domNew('h1', 'G Readme'), G.domNew('h1', 'domtool gh-pages refs head')]);
 G.ac(section, G.domNew('h3', G.refs.ghpages));
 
 // show commits for the first page and nuomber of pagination links
 function coo(response){
 	G.repoCommits = response.data;
+	G.repoCommitsMeta = response.meta;
   var ul = G.domNew('ul');
-	// section.G(ul);
   G.ac(section, ul);
 	for (var i = 0; i < G.repoCommits.length; i++) {
 		var commessa = G.repoCommits[i];
@@ -20,8 +20,20 @@ function coo(response){
 		li.innerHTML += ' &ndash; ' + commessa.commit.message;
 		G.ac(ul, li);
 	}
-  G.ac(section, G.domNew('h2', response.data.length + 'commits, ' + response.meta.Link.length + ' Pagination links'));
+  G.ac(section, G.domNew('h2', response.data.length + ' commits, ' + response.meta.Link.length + ' Pagination links'));
+	pagination();
 }
 
 // request repo commits
 G.loadScript([G.repoApi, 'commits?callback=coo'].join('/'));
+
+function pagination () {
+	if (G.repoCommitsMeta.length) {
+		var links = G.repoCommitsMeta.Link;
+		for (var i = 0; i < links.length; i++) {
+			if (links[i][1].rel === 'next') {
+				G.ac(section, G.domNew('p', links[i][0]));
+			}
+		}
+	}
+}

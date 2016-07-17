@@ -5,7 +5,16 @@ var G = {
 	apiRepos: 'https://api.github.com/repos',
 	refs: { master: "master", ghpages: "gh-pages"},
 	repoCommits: [],
+	repoCommitsMeta: [],
 	get repoName () { return this.urlSlash[1]; },
+	get repoFolder () {
+		var arr = [];
+		var folders = this.urlSlash;
+		for (var i = 2; i < folders.length -1; i++) {
+			if (folders[i] !== '') arr.push(folders[i]);
+		}
+		return (arr.length) ? arr.join('/') : false;
+	},
 	get repoOwner () { return this.urlArray[0]; },
 	get repoFullname () { return [this.repoOwner, this.repoName].join('/'); },
 	get repoUrl () { return 'https://github.com/' + G.repoFullname; },
@@ -33,7 +42,7 @@ var G = {
 	},
 	loadScript: function (s) {
 		if (s.indexOf('?') < 0) s += '?';
-		G.ac(document.getElementsByTagName('head')[0], G.domNew('script', '', {'src': s + '&' + new Date().getTime()}));
+		G.ac(document.getElementsByTagName('head')[0], G.domNew('script', '', {'src': s + '&t=' + new Date().getTime()}));
 	},
 	domNew: function (tag, inner, attributes) {
 		var element = document.createElement(tag);
