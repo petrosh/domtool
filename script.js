@@ -32,7 +32,7 @@ function pagination () {
 		var links = G.repoCommitsLinks;
 		for (var i = 0; i < links.length; i++) {
 			if (links[i][1].rel === 'next') {
-				var nextLink = G.domNew('a', 'next');
+				var nextLink = G.domNew('a', 'next', {href: links[i][0]});
 				nextLink.addEventListener('click', nextPage);
 				G.ac(section, nextLink);
 			}
@@ -42,5 +42,5 @@ function pagination () {
 
 function nextPage (event) {
 	event.preventDefault();
-	G.loadScript(links[i][0]);
+	G.loadScript(event.target.href);
 }
