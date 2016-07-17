@@ -68,8 +68,8 @@ var G = {
 	},
 	req: function(url, callback, method, accept, data) {
 		var xhr = new XMLHttpRequest();
-		xhr.setRequestHeader('Accept', accept || 'application/vnd.github.v3.full+json');
 		xhr.open(method || 'get', url, true);
+		xhr.setRequestHeader('Accept', accept || 'application/vnd.github.v3.full+json');
 		// if (userToken && atob(userToken)) {
 		// 	xhr.setRequestHeader( 'Authorization', 'token ' + atob(userToken) );
 		// 	userLogged = true;
