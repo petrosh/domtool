@@ -43,5 +43,5 @@ function pagination () {
 function nextPage (event) {
 	event.preventDefault();
 	G.loadScript(event.target.href);
-	event.target.parentNode.removeChild(c);
+	event.target.parentNode.removeChild(event.target);
 }
