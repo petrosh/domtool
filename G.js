@@ -42,8 +42,8 @@ var G = {
 		}
 	},
 	loadScript: function (s) {
-		if (s.indexOf('?') < 0) s += '?';
-		G.ac(document.getElementsByTagName('head')[0], G.domNew('script', '', {'src': s + '&t=' + new Date().getTime()}));
+		// if (s.indexOf('?') < 0) s += '?';
+		G.ac(document.getElementsByTagName('head')[0], G.domNew('script', '', {'src': s}));
 	},
 	domNew: function (tag, inner, attributes) {
 		var element = document.createElement(tag);
