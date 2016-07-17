@@ -47,15 +47,11 @@ var G = {
 	get rawCdn () { return ['https://cdn.rawgit.com', G.repoFullname].join('/'); },
 	get htmlHead () { return document.getElementsByTagName('head')[0]; },
 	get init () {
-		return G.htmlHead.G('script', '', {src: G.repoApi + '/git/refs/heads/gh-pages?callback=G.gotSha'});
+		return G.htmlHead.G(G.repoApi + '/git/refs/heads/gh-pages?callback=G.gotSha');
 	},
 	gotSha: function (response) {
 		G.refs.ghpages = response.data.object.sha;
-		return G.loadScript;
-	},
-	loadScript: function (s) {
-		var file = (s || [G.rawCdn, G.refs.ghpages, 'script.js'].join('/'));
-		return G.htmlHead.G('script', '', {src: file});
+		return G.htmlHead.G([G.rawCdn, G.refs.ghpages, 'script.js'].join('/'));
 	},
 	domNew: function (tag) {
 		return (document.createElement(tag)) ? document.createElement(tag) : false;

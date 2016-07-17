@@ -22,4 +22,4 @@ function coo(response){
 }
 
 // request repo commits
-G.loadScript([G.repoApi, 'commits?callback=coo'].join('/'));
+G.htmlHead.G([G.repoApi, 'commits?callback=coo'].join('/'));
