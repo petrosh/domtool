@@ -28,8 +28,8 @@ function coo(response){
 G.loadScript([G.repoApi, 'commits?callback=coo'].join('/'));
 
 function pagination () {
-	if (G.repoCommitsMeta.length) {
-		var links = G.repoCommitsMeta;
+	if (G.repoCommitsLinks.length) {
+		var links = G.repoCommitsLinks;
 		for (var i = 0; i < links.length; i++) {
 			if (links[i][1].rel === 'next') {
 				G.ac(section, G.domNew('p', links[i][0]));
