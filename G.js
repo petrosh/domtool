@@ -22,7 +22,7 @@ var G = {
 				if (ele.indexOf('?') < 0) ele += '?';
 				out = G.dom(target, 'script', '', {'src': ele + '&' + new Date().getTime()});
 			} else {
-				var element = document.createElement(ele);
+				var element = G.domNew(ele);
 				if (inner) {
 					element.innerHTML = inner;
 				}
@@ -41,9 +41,15 @@ var G = {
 	get init () {
 		return G.dom(G.htmlHead, G.repoApi + '/git/refs/heads/gh-pages?callback=G.loadScript');
 	},
-	loadScript: function(response) {
+	loadScript: function (response) {
 		G.refs.ghpages = response.data.object.sha;
 		G.dom(G.htmlHead, [G.rawCdn, G.refs.ghpages, 'script.js'].join('/'));
+	},
+	domNew: function (tag) {
+		return (document.createElement(tag)) ? document.createElement(tag) : false;
+	},
+	query: function (selector) {
+		return (document.querySelector(selector)) ? document.querySelector(selector) : false;
 	}
 };
 

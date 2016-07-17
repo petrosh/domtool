@@ -1,5 +1,5 @@
-var section = document.querySelector('section');
-var footer = document.querySelector('footer div.content');
+var section = G.query('section');
+var footer = G.query('footer div.content');
 G.dom(footer, 'a', 'Repository', {href: G.repoUrl});
 G.dom(footer, 'a', 'Screenshot', {href: G.repoSshot});
 G.dom(section, 'h1', 'gh-pages refs head');
@@ -12,8 +12,10 @@ function coo(response){
   G.dom(section, 'ul');
 	for (var i = 0; i < G.repoCommits.length; i++) {
     var commessa = G.repoCommits[i];
-    var li = document.createElement('li');
-    G.dom(li, 'a', commessa.sha.substr(0,7), {href: commessa.html_url});
+    var li = G.query('li');
+    var code = G.query('code');
+    G.dom(code, 'a', commessa.sha.substr(0,7), {href: commessa.html_url});
+    li.appendChild(code);
     li.innerHTML += ' ' + commessa.commit.message;
 		section.querySelector('ul').appendChild(li);
 	}
