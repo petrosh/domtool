@@ -1,6 +1,6 @@
 var section = document.querySelector('section');
-var footer = document.querySelector('footer');
-G.dom(G.dom(footer, 'div', '', {class: 'content'}), 'a', 'repository', {href: G.repoUrl});
+var footer = document.querySelector('footer div.content');
+G.dom(footer, 'a', 'repository', {href: G.repoUrl});
 G.dom(section, 'h1', ['gh-pages refs head', G.refs.ghpages].join(': '));
 G.dom(section, 'ul');
 
