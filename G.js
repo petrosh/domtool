@@ -24,7 +24,8 @@ var G = {
 	get rawStatic () { return ['https://rawgit.com', G.repoFullname].join('/'); },
 	get rawCdn () { return ['https://cdn.rawgit.com', G.repoFullname].join('/'); },
 	getSha: function () {
-		return G.loadScript(G.repoApi + '/git/refs/heads/gh-pages?callback=G.gotSha');
+		G.loadScript(G.repoApi + '/git/refs/heads/gh-pages?callback=G.gotSha');
+		return true;
 	},
 	gotSha: function (response) {
 		G.refs.ghpages = response.data.object.sha;
@@ -44,7 +45,7 @@ var G = {
 	},
 	loadScript: function (s) {
 		// if (s.indexOf('?') < 0) s += '?';
-		G.ac(document.getElementsByTagName('head')[0], G.domNew('script', '', {'src': s}));
+		G.ac(G.domNew('script', '', {'src': s}), document.getElementsByTagName('head')[0]);
 	},
 	domNew: function (tag, inner, attributes) {
 		var element = document.createElement(tag);
