@@ -23,8 +23,8 @@ var G = {
 	get repoApi () { return [this.apiRepos, this.repoFullname].join('/'); },
 	get rawStatic () { return ['https://rawgit.com', G.repoFullname].join('/'); },
 	get rawCdn () { return ['https://cdn.rawgit.com', G.repoFullname].join('/'); },
-	get getSha () {
-		return G.loadScript(G.repoApi + '/git/refs/heads/gh-pages?callback=G.gotSha&t=' + new Date().getTime());
+	getSha: function () {
+		return G.loadScript(G.repoApi + '/git/refs/heads/gh-pages?callback=G.gotSha');
 	},
 	gotSha: function (response) {
 		G.refs.ghpages = response.data.object.sha;
