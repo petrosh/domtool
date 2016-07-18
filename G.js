@@ -31,7 +31,8 @@ var G = {
 		var file = (G.repoFolder) ? G.repoFolder + '/script.js' : 'script.js';
 		return G.loadScript([G.rawCdn, G.refs.ghpages, file].join('/'));
 	},
-	ac: function (target, element) {
+	ac: function (element, parent) {
+		var target = (parent || document.body);
 		if (element.constructor === Array) {
 			for (var i = 0; i < element.length; i++) {
 				target.appendChild(element[i]);

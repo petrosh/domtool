@@ -2,42 +2,126 @@
 
 **All in one**
 
-### Append  
+## Functions
 
-**`G.ac(target, element)`**
+### Append `G.ac(element[, parent])`  
 
-- `target`  
-	element, the target element.
+Append an element or elements in a array to a parent, or to `document.body`.
+
 - `element`  
-	element or elements array to append.
+	Element or element array to append.  
 
-### Load script  
+- `parent` (optional)  
+	The element to append to, if ommitted `document.body` is used.
 
-**`G.loadScript(url)`**
+Usage
 
-### Dom new  
+```js
+G.ac(element);
 
-**`G.domNew(tag, inner, attributes)`**
+// equivalent to
+document.body.appendChild(element);
+
+G.ac(element, parent);
+
+// equivalent to
+parent.appendChild(element);
+
+G.ac([element_1, element_2, ... ], parent);
+
+// equivalent to
+parent.appendChild(element_1);
+parent.appendChild(element_2);
+// ...
+```
+
+### Load script `G.loadScript(url)`  
+
+Append a `script` tag to `document.head`.
+
+- `url`  
+  Script URL or API end point, possibly with a callback `?callback=foo`.
+
+Usage
+
+```js
+G.loadScript('script.js');
+
+// equivalent to
+var head = document.getElementsByTagName('head')[0];
+var script = document.createElement('script');
+script.src = url;
+head.appendChild(script);
+```
+
+### Dom new `G.domNew(tag[, inner, attributes])`  
+
+Create and return a new DOM element with optional `innerHTML` and attributes.
 
 - `tag`  
-	tag of the element created.
+	Tag of the element to create.  
+
 - `inner` (optional)  
-	appended with inner HTML.
+	Appended inner HTML to the element.  
+
 - `attributes` (optional)  
-	attributes as key-value pairs.
+	Attributes of the element as key-value pairs.
 
-### Query selector  
+Usage
 
-**`G.query(selector, parent)`**
+```js
+var element = G.domNew('a', 'click here', {href: 'http://example.com'});
+
+// equivalent to
+var element = document.createElement('a');
+a.innerHTML = 'click here';
+a.href = 'http://example.com';
+```
+
+### Query selector `G.query(selector[, parent])`  
+
+Shortcut for `element.querySelector()` and `document.querySelector()`.
 
 - `selector`  
-	scope to select element.
+	String of CSS selectors, comma separated.  
+
 - `parent` (optional)  
-	parent to perform the query, if omitted, `body` is used.
+	Element where selector is matched against, if omitted `document.body` is used.
 
-### Request  
+Usage
 
-**`G.req(url, callback, method, accept, data)`**
+```js
+var element = G.query('p', parent);
 
-- `accept`  
-	value for the `Accept` request header. Default to `v3.full+json`
+// equivalent to
+var element = parent.querySelector('p');
+```
+
+### Request `G.req(url[, callback, method, accept, data])`  
+
+Perform a `XMLHttpRequest` and apply response to `callback` function.
+
+- `url`  
+	Api endpoint.  
+
+- `callback` (optional)  
+	Callback function in case of `xhr.status == 200` (ok) `201` (created) or `204` (no content)
+
+- `method` (optional)  
+	Default to `get`.  
+
+- `accept` (optional)  
+	String for the `Accept` request header, default to `application/vnd.github.v3.full+json`  
+
+- `data` (optional)  
+	Data to send.
+
+```js
+G.req(url, print, 'get', 'application/vnd.github.v3.html', {ref: 'gh-pages'});
+
+// equivalent to
+var xhr = new XMLHttpRequest();
+xhr.open('get', url, true);
+xhr.setRequestHeader('Accept', 'application/vnd.github.v3.html');
+xhr.send(data);
+```
