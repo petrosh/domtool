@@ -18,7 +18,7 @@ var G = {
 	get repoOwner () { return this.urlArray[0]; },
 	get repoFullname () { return [this.repoOwner, this.repoName].join('/'); },
 	get repoUrl () { return 'https://github.com/' + G.repoFullname + G.repoFolder; },
-	get repoSshot () { return 'https://developer.microsoft.com/en-us/microsoft-edge/tools/screenshots/?url=https://' + encodeURIComponent(G.repoOwner + '.github.io/' + G.repoName + G.repoFolder); },
+	get repoSshot () { return 'https://developer.microsoft.com/en-us/microsoft-edge/tools/screenshots/?url=' + encodeURIComponent('https://' + G.repoOwner + '.github.io/' + G.repoName + G.repoFolder); },
 	get repoHome () { return 'https://' + this.repoOwner + '.github.io/' + this.repoName; },
 	get repoApi () { return [this.apiRepos, this.repoFullname].join('/'); },
 	get rawStatic () { return ['https://rawgit.com', G.repoFullname].join('/'); },
