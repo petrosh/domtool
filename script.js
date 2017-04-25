@@ -5,7 +5,7 @@ G.ac(G.domNew('a', 'Screenshots', {href: G.repoSshot}), footer);
 G.ac([G.domNew('h1', 'G Readme'), G.domNew('h1', 'domtool gh-pages refs head')], section);
 G.ac(G.domNew('h3', G.refs.ghpages), section);
 
-// show commits for the first page and nuomber of pagination links
+// show commits for the first page and number of pagination links
 function coo(response){
 	G.repoCommits = response.data;
 	G.repoCommitsLinks = response.meta.Link;
