@@ -1,57 +1,57 @@
 <!doctype html>
-<title>jQuery 3.2.1</title>
+<title>jQuery </title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="//petrosh.it/assets/css/normalize.css">
 <link rel="stylesheet" href="//petrosh.it/assets/css/external.css">
 <script src="jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	console.log($().jquery);
-	var	topics = {},
-			main = document.querySelector('main');
+	var	topics = {};
+	// Show jquery version
+	$('header h1, title').append($().jquery);
+	// Ajax call
 	$.ajax({
 		url:"https://api.github.com/users/petrosh/starred",
 		dataType: "json",
 		headers: {"Accept": "application/vnd.github.mercy-preview+json"},
-		success : function( returndata ) {
-			returndata.map(function(e){
-				e.topics = e.topics || [];
-				if(e.topics.length > 0){
-					e.topics.map(function(t) {
-						if(topics.hasOwnProperty(t)){
-							topics[t].push(e);
-						}else{
-							topics[t]=[e];
-						}
-					});
-				}
-			});
-			console.log(topics);
-			var sortable = [];
-			for (var obj in topics) sortable.push([obj, topics[obj]]);
-			sortable.sort(function(a, b) {
-				if(a[1].length === b[1].length){
-					return a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0;
-				}
-				return b[1].length - a[1].length;
-			});
-			sortable.map(function(e){
-				main.innerHTML+='<h3>' + e[0] +'</h3>';
-				var list = document.createElement('ul');
-				var arr = e[1];
-				e[1].map(function(e){
-					list.innerHTML+='<li><a href="' + e.html_url +'">' + e.name + '</a></li>';
-				});
-				main.appendChild(list);
-			});
-		}
+		success : mercury
 	});
+	// Callback
+	function mercury( returndata ) {
+		// populate topics object
+		returndata.map(function(e){
+			e.topics = e.topics || [];
+			e.topics.map(function(t) {
+				if(topics.hasOwnProperty(t)) topics[t].push(e); else topics[t]=[e];
+			});
+		});
+		// make array to sort
+		var sortable = [];
+		for (var obj in topics) sortable.push([obj, topics[obj]]);
+		// Sort
+		sortable.sort(function(a, b) {
+			if(a[1].length === b[1].length){
+				return a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0;
+			}
+			return b[1].length - a[1].length;
+		});
+		// Append to DOM
+		sortable.map(function(e){
+			$('<h3/>', { text: e[0]	}).appendTo('main');
+			var list = $('<ul/>');
+			e[1].map(function(e){
+				list.append($('<li/>').append($('<a/>', { href: e.html_url, text: e.name })));
+			});
+			$('main').append(list);
+		});
+	}
+
 });
 </script>
 
 <header>
-	<h1>jQuery 3.2.1</h1>
-	<p>Topics on starred repositories</p>
+	<h1>jQuery </h1>
+	<p>Topics on starred repositories sorted by topic repetitions and naturally</p>
 </header>
 
 <main class="content"></main>
